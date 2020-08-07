@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import Navbar from "../components/Navbar";
-import Intro from "../components/Intro";
-import Video from "../components/Video";
-import Mask from "../components/Mask";
-import Container from "../components/Container";
-import CityBlock from "../components/CityBlock";
-// import { Link } from "react-router-dom";
+import Navbar from '../components/Navbar'
+import Intro from '../components/Intro'
+import Video from '../components/Video'
+import Mask from '../components/Mask'
+import Container from '../components/Container'
 
+import CityBlock from '../components/CityBlock'
+// import { Link } from "react-router-dom";
 
 const styles = {
   headerB: {
-    fontFamily: "'Heebo', sans-serif" 
+    fontFamily: "'Heebo', sans-serif"
   },
   headerC: {
-    fontFamily: "'Trade Winds', cursive" 
+    fontFamily: "'Trade Winds', cursive"
   },
   view: {
     position: 'relative',
@@ -65,21 +65,18 @@ const styles = {
   }
 }
 
-function Home() {
-
-  
-   
-
+function Home () {
   return (
-      <Intro>  
-        <Video/>
+    <>
+      <Navbar />
+      <Intro>
+        <Video />
         <Mask>
-          <Container>
-            
-          </Container>
+          <Container></Container>
         </Mask>
       </Intro>
-    );
+    </>
+  )
 }
 
-export default Home;
+export default Home
