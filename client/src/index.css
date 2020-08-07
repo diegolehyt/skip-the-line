@@ -1,0 +1,18 @@
+/* body {
+  background-repeat: no-repeat;
+  background-attachment: fixed;  
+  background-size: cover;
+  width: auto;
+  height: auto;
+} */
+/* html,
+body,
+header,
+.view {
+  height: 100%;
+} */
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
