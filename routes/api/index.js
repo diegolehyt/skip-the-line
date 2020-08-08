@@ -1,9 +1,9 @@
-const path = require("path");
-const router = require("express").Router();
+const path = require('path')
+const router = require('express').Router()
+const users = require('./users')
+const auth = require('./auth')
 
-// For anything else, render the html page
-router.use(function(req, res) {
-  res.sendFile(path.join(__dirname, "../../client/build/index.html"));
-});
+// router.use('/users', users)
+router.use('/auth', auth)
 
-module.exports = router;
+module.exports = router
