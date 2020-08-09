@@ -39,8 +39,8 @@ module.exports = passport => {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: '/api/auth/google/callback'
       },
-      (accessToken, refreshToken, profile, cb) => {
-        return cb(null, profile)
+      (accessToken, refreshToken, email, cb) => {
+        return cb(null, email)
       }
     )
   )
