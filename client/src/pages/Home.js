@@ -6,6 +6,7 @@ import Mask from '../components/Mask'
 import Container from '../components/Container'
 
 import CityBlock from '../components/CityBlock'
+import axios from 'axios'
 // import { Link } from "react-router-dom";
 
 const styles = {
@@ -66,6 +67,11 @@ const styles = {
 }
 
 function Home () {
+  useEffect(() => {
+    axios.get('/api/auth/user').then(res => {
+      console.log(res.data)
+    })
+  }, [])
   return (
     <>
       <Navbar />

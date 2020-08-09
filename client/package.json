@@ -2,10 +2,9 @@
   "name": "skip-the-line",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001/",
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "axios": "^0.18.0",
-    "http-proxy-middleware": "^1.0.5",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-google-login": "^5.1.21",
