@@ -39,8 +39,21 @@ module.exports = passport => {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: '/api/auth/google/callback'
       },
-      (accessToken, refreshToken, email, cb) => {
-        return cb(null, email)
+      async (accessToken, refreshToken, profile, cb) => {
+        let user = await User.findOne({ email: profile._json.email })
+        console.log(profile)
+        if (!user) {
+          try {
+            user = await User.create({
+              email: profile._json.email,
+              googleId: profile.id
+            })
+          } catch (err) {
+            console.error(err)
+            return done(err, null)
+          }
+        }
+        return cb(null, user)
       }
     )
   )
