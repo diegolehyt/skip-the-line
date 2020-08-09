@@ -4,8 +4,7 @@ import Intro from '../components/Intro'
 import Video from '../components/Video'
 import Mask from '../components/Mask'
 import Container from '../components/Container'
-
-import CityBlock from '../components/CityBlock'
+import HomeContent from '../components/HomeContent'
 import axios from 'axios'
 // import { Link } from "react-router-dom";
 
@@ -78,7 +77,9 @@ function Home () {
       <Intro>
         <Video />
         <Mask>
-          <Container></Container>
+          <Container>
+            <HomeContent/>
+          </Container>
         </Mask>
       </Intro>
     </>
