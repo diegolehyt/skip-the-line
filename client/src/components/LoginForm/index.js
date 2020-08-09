@@ -18,8 +18,10 @@ const LoginForm = () => {
     axios
       .post('/api/auth/local', form)
       .then(res => {
-        if (res.data.message === 'Successfully Authenticated')
+        if (res.data.isAuthenticated) {
           setAuthenticated(true)
+          localStorage.setItem('isAuthenticated', true)
+        }
       })
       .catch(err => {
         console.log(err.response.data.message)
@@ -85,9 +87,11 @@ const LoginForm = () => {
         </p>
 
         <p>or</p>
-        <a className='nav-link' href='api/auth/google'>
-          Continue with Google
-        </a>
+        <button onClick={() => localStorage.setItem('isAuthenticated', true)}>
+          <a className='nav-link' href='api/auth/google'>
+            Continue with Google
+          </a>
+        </button>
         {/*<GoogleLogin
           clientId=''
           onSuccess={() => setAuthenticated(true)}
