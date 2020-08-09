@@ -20,7 +20,12 @@ module.exports = passport => {
           bcrypt.compare(password, user.password, (err, result) => {
             if (err) throw err
             if (result === true) {
-              return done(null, user)
+              const { _id, email, __v } = user
+              return done(null, {
+                _id,
+                email,
+                __v
+              })
             } else {
               return done(null, false, {
                 message: 'Incorrect password.'
@@ -45,8 +50,8 @@ module.exports = passport => {
         if (!user) {
           try {
             user = await User.create({
-              email: profile._json.email,
-              googleId: profile.id
+              googleId: profile.id,
+              email: profile._json.email
             })
           } catch (err) {
             console.error(err)
