@@ -13,7 +13,9 @@ router.post('/local', (req, res, next) => {
     else {
       req.logIn(user, err => {
         if (err) throw err
-        res.json('Successfully Authenticated')
+        res.status(200).send({
+          message: 'Successfully Authenticated'
+        })
       })
     }
   })(req, res, next)

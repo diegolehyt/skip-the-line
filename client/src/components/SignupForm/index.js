@@ -18,8 +18,8 @@ const SignupForm = props => {
     axios
       .post('/api/auth/register', form)
       .then(res => {
-        console.log(res.data)
-        if (res.data === 'Successfully Authenticated') setAuthenticated(true)
+        if (res.data.message === 'Successfully Authenticated')
+          setAuthenticated(true)
       })
       .catch(err => {
         console.log(err.response.data.message)
