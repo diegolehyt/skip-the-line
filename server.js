@@ -37,10 +37,6 @@ if (process.env.NODE_ENV === 'production') {
 // Add routes, both API and view
 app.use(routes)
 
-app.all('/*', function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*')
-  next()
-})
 // Connect to the Mongo DB
 mongoose.connect(
   process.env.MONGODB_URI || 'mongodb://localhost:27017/skip-the-line',

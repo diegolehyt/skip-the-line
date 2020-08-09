@@ -6,6 +6,7 @@ import axios from 'axios'
 const LoginForm = () => {
   const [authenticated, setAuthenticated] = useState(false)
   const [form, setForm] = useState({ email: '', password: '' })
+  const [error, setError] = useState('')
 
   const handleChange = event => {
     const { name, value } = event.target
@@ -14,10 +15,16 @@ const LoginForm = () => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    axios.post('/api/auth/local', form).then(res => {
-      console.log(res.data)
-      setAuthenticated(true)
-    })
+    axios
+      .post('/api/auth/local', form)
+      .then(res => {
+        if (res.data.message === 'Successfully Authenticated')
+          setAuthenticated(true)
+      })
+      .catch(err => {
+        console.log(err.response.data.message)
+        setError(err.response.data.message)
+      })
   }
 
   return (
@@ -86,6 +93,7 @@ const LoginForm = () => {
           onSuccess={() => setAuthenticated(true)}
           cookiePolicy={'single_host_origin'}
         />*/}
+        <p>{error}</p>
       </form>
     </>
   )

@@ -5,6 +5,7 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import ProtectedRoute from './utils/ProtectedRoute'
 // import Footer from "./components/Footer";
 import Wrapper from './components/Wrapper'
 
@@ -22,7 +23,7 @@ function App () {
     <Router>
       <header style={styles.headerB}>
         <Wrapper>
-          <Route exact path='/home' component={Home} />
+          <ProtectedRoute exact path='/home' component={Home} />
           <Route exact path='/about' component={About} />
           <Route exact path='/contact' component={Contact} />
           <Route exact path='/' component={Login} />

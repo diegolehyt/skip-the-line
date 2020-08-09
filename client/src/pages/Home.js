@@ -6,6 +6,8 @@ import Mask from '../components/Mask'
 import Container from '../components/Container'
 import HomeContent from '../components/HomeContent'
 import axios from 'axios'
+import { connect } from 'react-redux'
+import { getPosts, deletePost, createPost } from '../actions/postActions'
 // import { Link } from "react-router-dom";
 
 const styles = {
@@ -65,7 +67,16 @@ const styles = {
   }
 }
 
-function Home () {
+function Home (props) {
+  // const { posts } = props.posts
+
+  // useEffect(() => {
+  //   props.getPosts()
+  // }, [])
+
+  // const handleDelete = id => {
+  //   props.deletePost(id)
+  // }
   useEffect(() => {
     axios.get('/api/auth/user').then(res => {
       console.log(res.data)
@@ -78,7 +89,7 @@ function Home () {
         <Video />
         <Mask>
           <Container>
-            <HomeContent/>
+            <HomeContent />
           </Container>
         </Mask>
       </Intro>
@@ -86,4 +97,12 @@ function Home () {
   )
 }
 
-export default Home
+const mapStateToProps = state => {
+  return {
+    posts: state.posts
+  }
+}
+
+export default connect(mapStateToProps, { getPosts, deletePost, createPost })(
+  Home
+)

@@ -3,9 +3,10 @@ import { Redirect } from 'react-router-dom'
 import GoogleLogin from 'react-google-login'
 import axios from 'axios'
 
-const SignupForm = () => {
+const SignupForm = props => {
   const [authenticated, setAuthenticated] = useState(false)
   const [form, setForm] = useState({ email: '', password: '' })
+  const [error, setError] = useState('')
 
   const handleChange = event => {
     const { name, value } = event.target
@@ -14,9 +15,16 @@ const SignupForm = () => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    axios.post('/api/auth/register', form).then(res => {
-      if (res.data === 'Successfully Authenticated') setAuthenticated(true)
-    })
+    axios
+      .post('/api/auth/register', form)
+      .then(res => {
+        if (res.data.message === 'Successfully Authenticated')
+          setAuthenticated(true)
+      })
+      .catch(err => {
+        console.log(err.response.data.message)
+        setError(err.response.data.message)
+      })
   }
 
   return (
@@ -86,6 +94,7 @@ const SignupForm = () => {
           onSuccess={() => setAuthenticated(true)}
           cookiePolicy={'single_host_origin'}
         />*/}
+        <p>{error}</p>
       </form>
     </>
   )
