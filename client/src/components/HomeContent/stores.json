@@ -1,0 +1,209 @@
+[
+  {
+    "id": 1,
+    "name": "LCBO",
+    "adress": "56 riverside drive",
+    "storeCapacity": 15,
+    "lineCapacity": 20,
+    "logo": "https://www.thesportsdb.com/images/media/team/badge/a1af2i1557005128.png",
+    "inLine":[
+      {
+        "id": 1,
+        "username": "Anthony",
+        "storeLine": "LCBO",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Dustin",
+        "storeLine": "LCBO",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Larry",
+        "storeLine": "LCBO",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Bob",
+        "storeLine": "LCBO",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Ali",
+        "storeLine": "LCBO",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Ryan",
+        "storeLine": "LCBO",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Lukas",
+        "storeLine": "LCBO",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Kim",
+        "storeLine": "LCBO",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Camila",
+        "storeLine": "LCBO",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Jose",
+        "storeLine": "LCBO",
+        "spots": "1"
+      }
+    ],
+    "inStore": 15
+  },
+  {
+    "id": 2,
+    "name": "Coras",
+    "adress": "56 riverside drive",
+    "storeCapacity": 50,
+    "lineCapacity": 20,
+    "logo": "https://www.thesportsdb.com/images/media/team/badge/a1af2i1557005128.png",
+    "inLine":[
+      {
+        "id": 1,
+        "username": "John",
+        "storeLine": "Coras",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "David",
+        "storeLine": "Coras",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Lore",
+        "storeLine": "Coras",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Carlos",
+        "storeLine": "Coras",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Pablo",
+        "storeLine": "Coras",
+        "spots": "1"
+      }
+    ],
+    "inStore": 50
+  },
+  {
+    "id": 3,
+    "name": "Walmart",
+    "adress": "56 riverside drive",
+    "storeCapacity": 15,
+    "lineCapacity": 300,
+    "logo": "https://www.thesportsdb.com/images/media/team/badge/a1af2i1557005128.png",
+    "inLine":[
+      {
+        "id": 1,
+        "username": "Javier",
+        "storeLine": "Walmart",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Carl",
+        "storeLine": "Walmart",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Leo",
+        "storeLine": "Walmart",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Max",
+        "storeLine": "Walmart",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Kate",
+        "storeLine": "Walmart",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Lu",
+        "storeLine": "Walmart",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Mirko",
+        "storeLine": "Walmart",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Nicolas",
+        "storeLine": "Walmart",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Felipe",
+        "storeLine": "Walmart",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Roberto",
+        "storeLine": "Walmart",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Rodrigo",
+        "storeLine": "Walmart",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Fabian",
+        "storeLine": "Walmart",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Ricardo",
+        "storeLine": "Walmart",
+        "spots": "1"
+      },
+      {
+        "id": 1,
+        "username": "Andrea",
+        "storeLine": "Walmart",
+        "spots": "1"
+      }
+    ],
+    "inStore": 300
+  }
+]
