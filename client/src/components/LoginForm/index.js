@@ -81,11 +81,11 @@ const LoginForm = () => {
         <a className='nav-link' href='api/auth/google'>
           Continue with Google
         </a>
-        <GoogleLogin
-          clientId='526393775648-degj5i87qn5khamnkt7qomims62jdo3n.apps.googleusercontent.com'
+        {/*<GoogleLogin
+          clientId=''
           onSuccess={() => setAuthenticated(true)}
           cookiePolicy={'single_host_origin'}
-        />
+        />*/}
       </form>
     </>
   )
