@@ -35,27 +35,21 @@ module.exports = passport => {
   passport.use(
     new GoogleStrategy(
       {
-        clientID:
-          '526393775648-degj5i87qn5khamnkt7qomims62jdo3n.apps.googleusercontent.com',
-        clientSecret: 'Fe02yZB4fOckI4qm8Hg7RFFV',
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: '/api/auth/google/callback'
       },
       (accessToken, refreshToken, profile, cb) => {
-        user = { ...profile }
         return cb(null, profile)
       }
     )
   )
 
-  passport.serializeUser((user, cb) => {
-    cb(null, user.id)
+  passport.serializeUser(function (user, cb) {
+    cb(null, user)
   })
-  passport.deserializeUser((id, cb) => {
-    User.findOne({ _id: id }, (err, user) => {
-      const userInformation = {
-        email: user.email
-      }
-      cb(err, userInformation)
-    })
+
+  passport.deserializeUser(function (obj, cb) {
+    cb(null, obj)
   })
 }

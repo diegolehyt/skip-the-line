@@ -11,24 +11,16 @@ router.post('/local', (req, res, next) => {
       req.logIn(user, err => {
         if (err) throw err
         res.send('Successfully Authenticated')
-        // return res.redirect('/home')
       })
     }
   })(req, res, next)
 })
 
-router.get(
-  '/google',
-  passport.authenticate('google', { scope: ['profile'] }, (req, res) => {})
-)
+router.get('/google', passport.authenticate('google', { scope: ['profile'] }))
 
-router.get(
-  '/google/callback',
-  passport.authenticate('google', {
-    successRedirect: 'http://localhost:3000/home',
-    failureRedirect: 'http://localhost:3000/login'
-  })
-)
+router.get('/google/callback', passport.authenticate('google'), (req, res) => {
+  res.redirect('http://localhost:3000/home')
+})
 
 router.post('/register', (req, res) => {
   User.findOne({ email: req.body.email }, async (err, doc) => {
@@ -44,6 +36,17 @@ router.post('/register', (req, res) => {
       res.redirect(307, '/api/auth/local')
     }
   })
+})
+
+router.get('/user', function (req, res) {
+  if (!req.user) {
+    // The user is not logged in, send back an empty object
+    res.json({})
+  } else {
+    // Otherwise send back the user's email and id
+    // Sending back a password, even a hashed password, isn't a good idea
+    res.json(req.user)
+  }
 })
 
 module.exports = router
