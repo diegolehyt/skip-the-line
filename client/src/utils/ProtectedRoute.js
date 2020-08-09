@@ -1,15 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import axios from 'axios'
 
 function ProtectedRoute ({ component: Component, user, ...rest }) {
-  const [isAuthenticated, setAuthenticated] = useState(true)
-  useEffect(() => {
-    axios.get('/api/auth/user').then(res => {
-      console.log(res.data)
-      setAuthenticated(true)
-    })
-  }, [])
+  const isAuthenticated = localStorage.getItem('isAuthenticated')
+  console.log(isAuthenticated)
   return (
     <Route
       {...rest}

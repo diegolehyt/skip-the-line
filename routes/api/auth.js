@@ -13,9 +13,11 @@ router.post('/local', (req, res, next) => {
     else {
       req.logIn(user, err => {
         if (err) throw err
-        res.status(200).send({
-          message: 'Successfully Authenticated'
-        })
+        // res.status(200).send({
+        //   message: 'Successfully Authenticated'
+        // })
+        user.isAuthenticated = true
+        return res.json(user)
       })
     }
   })(req, res, next)
@@ -55,6 +57,12 @@ router.get('/user', function (req, res) {
     // Sending back a password, even a hashed password, isn't a good idea
     res.json(req.user)
   }
+})
+
+router.get('/logout', function (req, res) {
+  req.logout()
+  req.session = null
+  res.redirect('/')
 })
 
 module.exports = router

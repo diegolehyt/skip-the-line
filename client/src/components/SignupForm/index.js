@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
-import GoogleLogin from 'react-google-login'
 import axios from 'axios'
 
 const SignupForm = props => {
@@ -18,8 +17,10 @@ const SignupForm = props => {
     axios
       .post('/api/auth/register', form)
       .then(res => {
-        if (res.data.message === 'Successfully Authenticated')
+        if (res.data.isAuthenticated) {
           setAuthenticated(true)
+          localStorage.setItem('isAuthenticated', true)
+        }
       })
       .catch(err => {
         console.log(err.response.data.message)
@@ -85,10 +86,12 @@ const SignupForm = props => {
         </p>
 
         <p>or</p>
+        <button>
+          <a className='nav-link' href='api/auth/google'>
+            Continue with Google
+          </a>
+        </button>
 
-        <a className='nav-link' href='api/auth/google'>
-          Continue with Google
-        </a>
         {/*<GoogleLogin
           clientId=''
           onSuccess={() => setAuthenticated(true)}

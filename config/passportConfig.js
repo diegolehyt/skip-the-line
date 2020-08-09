@@ -46,7 +46,6 @@ module.exports = passport => {
       },
       async (accessToken, refreshToken, profile, cb) => {
         let user = await User.findOne({ email: profile._json.email })
-        console.log(profile)
         if (!user) {
           try {
             user = await User.create({
