@@ -24,7 +24,6 @@ router.post('/local', (req, res, next) => {
 router.get('/google', passport.authenticate('google', { scope: ['email'] }))
 
 router.get('/google/callback', passport.authenticate('google'), (req, res) => {
-  console.log(req.user.emails[0].value)
   res.redirect('http://localhost:3000/home')
 })
 

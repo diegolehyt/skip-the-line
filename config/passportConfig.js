@@ -20,7 +20,12 @@ module.exports = passport => {
           bcrypt.compare(password, user.password, (err, result) => {
             if (err) throw err
             if (result === true) {
-              return done(null, user)
+              const { _id, email, __v } = user
+              return done(null, {
+                _id,
+                email,
+                __v
+              })
             } else {
               return done(null, false, {
                 message: 'Incorrect password.'
@@ -39,8 +44,21 @@ module.exports = passport => {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: '/api/auth/google/callback'
       },
-      (accessToken, refreshToken, email, cb) => {
-        return cb(null, email)
+      async (accessToken, refreshToken, profile, cb) => {
+        let user = await User.findOne({ email: profile._json.email })
+        console.log(profile)
+        if (!user) {
+          try {
+            user = await User.create({
+              googleId: profile.id,
+              email: profile._json.email
+            })
+          } catch (err) {
+            console.error(err)
+            return done(err, null)
+          }
+        }
+        return cb(null, user)
       }
     )
   )

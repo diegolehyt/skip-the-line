@@ -2,8 +2,8 @@ const mongoose = require('mongoose')
 const express = require('express')
 const cors = require('cors')
 const passport = require('passport')
-const cookieParser = require('cookie-parser')
-const session = require('express-session')
+const cookieSession = require('cookie-session')
+// const session = require('express-session')
 const bodyParser = require('body-parser')
 const app = express()
 const routes = require('./routes')
@@ -19,13 +19,11 @@ app.use(
   })
 )
 app.use(
-  session({
-    secret: 'secretcode',
-    resave: true,
-    saveUninitialized: true
+  cookieSession({
+    name: 'session',
+    keys: ['key1', 'key2']
   })
 )
-app.use(cookieParser('secretcode'))
 app.use(passport.initialize())
 app.use(passport.session())
 require('./config/passportConfig')(passport)
