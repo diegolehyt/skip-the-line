@@ -55,7 +55,9 @@ router.get('/user', function (req, res) {
   } else {
     // Otherwise send back the user's email and id
     // Sending back a password, even a hashed password, isn't a good idea
-    res.json(req.user)
+    const user = req.user
+    user.isAuthenticated = true
+    res.json(user)
   }
 })
 

@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
-import axios from 'axios'
+import { connect } from 'react-redux'
+import { createUser } from '../../actions/userActions'
 
-const SignupForm = props => {
-  const [authenticated, setAuthenticated] = useState(false)
+const SignupForm = ({ users, createUser }) => {
   const [form, setForm] = useState({ email: '', password: '' })
-  const [error, setError] = useState('')
 
   const handleChange = event => {
     const { name, value } = event.target
@@ -14,23 +13,12 @@ const SignupForm = props => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    axios
-      .post('/api/auth/register', form)
-      .then(res => {
-        if (res.data.isAuthenticated) {
-          setAuthenticated(true)
-          localStorage.setItem('isAuthenticated', true)
-        }
-      })
-      .catch(err => {
-        console.log(err.response.data.message)
-        setError(err.response.data.message)
-      })
+    createUser(form)
   }
 
   return (
     <>
-      {authenticated ? <Redirect to='/home' /> : null}
+      {users.user.isAuthenticated ? <Redirect to='/home' /> : null}
       <form
         className='text-center border border-light p-5'
         action='#!'
@@ -86,21 +74,25 @@ const SignupForm = props => {
         </p>
 
         <p>or</p>
-        <button>
-          <a className='nav-link' href='api/auth/google'>
-            Continue with Google
-          </a>
-        </button>
+        <a className='nav-link' href='api/auth/google'>
+          Continue with Google
+        </a>
 
         {/*<GoogleLogin
           clientId=''
           onSuccess={() => setAuthenticated(true)}
           cookiePolicy={'single_host_origin'}
         />*/}
-        <p>{error}</p>
+        <p>{users.error}</p>
       </form>
     </>
   )
 }
 
-export default SignupForm
+const mapStateToProps = state => {
+  return {
+    users: state.users
+  }
+}
+
+export default connect(mapStateToProps, { createUser })(SignupForm)

@@ -5,10 +5,9 @@ import Video from '../components/Video'
 import Mask from '../components/Mask'
 import Container from '../components/Container'
 import HomeContent from '../components/HomeContent'
-import axios from 'axios'
 import { connect } from 'react-redux'
-import { getPosts, deletePost, createPost } from '../actions/postActions'
-// import { Link } from "react-router-dom";
+import { getUser } from '../actions/userActions'
+import { useHistory } from 'react-router-dom'
 
 const styles = {
   headerB: {
@@ -67,20 +66,10 @@ const styles = {
   }
 }
 
-function Home (props) {
-  // const { posts } = props.posts
-
-  // useEffect(() => {
-  //   props.getPosts()
-  // }, [])
-
-  // const handleDelete = id => {
-  //   props.deletePost(id)
-  // }
+function Home ({ getUser, users }) {
+  let history = useHistory()
   useEffect(() => {
-    axios.get('/api/auth/user').then(res => {
-      console.log(res.data)
-    })
+    getUser()
   }, [])
   return (
     <>
@@ -93,16 +82,15 @@ function Home (props) {
           </Container>
         </Mask>
       </Intro>
+      {!users.loading && !users.user.isAuthenticated ? history.push('/') : null}
     </>
   )
 }
 
 const mapStateToProps = state => {
   return {
-    posts: state.posts
+    users: state.users
   }
 }
 
-export default connect(mapStateToProps, { getPosts, deletePost, createPost })(
-  Home
-)
+export default connect(mapStateToProps, { getUser })(Home)
