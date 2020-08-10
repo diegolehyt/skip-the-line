@@ -1,17 +1,33 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Route, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { getUser } from '../actions/userActions'
 
-function ProtectedRoute ({ component: Component, user, ...rest }) {
-  const isAuthenticated = localStorage.getItem('isAuthenticated')
-  console.log(isAuthenticated)
+function ProtectedRoute ({ component: Component, user, getUser, ...rest }) {
+  getUser()
   return (
-    <Route
-      {...rest}
-      render={props =>
-        isAuthenticated ? <Component {...props} /> : <Redirect to='/' />
-      }
-    />
+    <>
+      {console.log(user.loading)}
+      {user.loading ? (
+        <div />
+      ) : (
+        <Route
+          {...rest}
+          render={props =>
+            !user.user.isAuthenticated ? (
+              <Redirect to='/' />
+            ) : (
+              <Component {...props} />
+            )
+          }
+        />
+      )}
+    </>
   )
 }
-
-export default ProtectedRoute
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+export default connect(mapStateToProps, { getUser })(ProtectedRoute)

@@ -1,9 +1,9 @@
 import axios from 'axios'
 import {
-  GET_POSTS,
-  GET_POST,
-  CREATE_POST,
-  DELETE_POST,
+  GET_ITEMS,
+  GET_ITEM,
+  CREATE_ITEM,
+  DELETE_ITEM,
   ITEMS_LOADING
 } from './types'
 
@@ -13,7 +13,7 @@ export const getPosts = () => dispatch => {
     .get('/api/posts')
     .then(res =>
       dispatch({
-        type: GET_POSTS,
+        type: GET_ITEMS,
         payload: res.data
       })
     )
@@ -21,7 +21,7 @@ export const getPosts = () => dispatch => {
 }
 export const getPost = () => {
   return {
-    type: GET_POST
+    type: GET_ITEM
   }
 }
 export const createPost = post => dispatch => {
@@ -29,7 +29,7 @@ export const createPost = post => dispatch => {
     .post('/api/posts', post)
     .then(res =>
       dispatch({
-        type: CREATE_POST,
+        type: CREATE_ITEM,
         payload: res.data
       })
     )
@@ -38,12 +38,12 @@ export const createPost = post => dispatch => {
 export const deletePost = id => dispatch => {
   axios.delete(`/api/posts/${id}`).then(res =>
     dispatch({
-      type: DELETE_POST,
+      type: DELETE_ITEM,
       payload: id
     })
   )
   return {
-    type: DELETE_POST,
+    type: DELETE_ITEM,
     payload: id
   }
 }
