@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const bcrypt = require('bcryptjs')
 const { User } = require('../../models')
+const { Store } = require('../../models')
 const passport = require('passport')
 
 router.post('/local', (req, res, next) => {
@@ -56,5 +57,13 @@ router.get('/user', function (req, res) {
     res.json(req.user)
   }
 })
+
+router.get('/stores', function (req, res) {
+  // res.json({name: "Diego"})
+  Store.find().then(stores => res.json(stores)).catch(err => res.status(500).json(err))
+  console.log("*******ruta******")
+  console.log(res)
+})
+
 
 module.exports = router

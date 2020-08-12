@@ -1,0 +1,29 @@
+[
+  {
+    "name": "LCBO",
+    "address": "754 st andre drive, orleans",
+    "storeCapacity": 15,
+    "lineCapacity": 20,
+    "logo": "https://www.thesportsdb.com/images/media/team/badge/a1af2i1557005128.png",
+    "inLine":[],
+    "inStore": 15
+  },
+  {
+    "name": "Coras",
+    "address": "56 riverside drive, ottawa",
+    "storeCapacity": 50,
+    "lineCapacity": 20,
+    "logo": "https://www.thesportsdb.com/images/media/team/badge/a1af2i1557005128.png",
+    "inLine":[],
+    "inStore": 50
+  },
+  {
+    "name": "Walmart",
+    "address": "56 riverside drive",
+    "storeCapacity": 15,
+    "lineCapacity": 300,
+    "logo": "https://www.thesportsdb.com/images/media/team/badge/a1af2i1557005128.png",
+    "inLine":[],
+    "inStore": 300
+  }
+]

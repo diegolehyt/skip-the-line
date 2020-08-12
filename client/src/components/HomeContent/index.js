@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import StoreBlock from "../StoreBlock";
+import axios from 'axios'
 import "./style.css";
 import storesList from "./stores.json"
+import Cookies from 'js-cookie'
 import userAPI from "./userAPI.json"
 
 const styles = {
@@ -32,6 +34,8 @@ function HomeContent() {
   const [line, setLine] = useState([]);
   const [store, setStore] = useState({});
   const [user, setUser] = useState({});
+
+  const [userOnline, setOnlineUser] = useState({});
   const [storeAct, setStoreAct] = useState(false);
 
   const getStores = () => {
@@ -43,7 +47,8 @@ function HomeContent() {
     //     setLogos(res);
     //     console.log(res);
     //   });
-    setUser(userAPI)
+
+    // setUser(userAPI)
     setStores(storesList)
   };
 
@@ -65,13 +70,22 @@ function HomeContent() {
 
   const handleLineCancel = () => {
     setLine(line.filter(
-      (playerZ) => playerZ.username !== user[0].username
+      (playerZ) => playerZ.email !== user.email
     ))
   };
 
   useEffect(() => {
     getStores();
+    console.log(Cookies.get())
   }, []);
+
+  useEffect(() => {
+    axios.get('/api/auth/user').then(res => {
+      console.log("********* USER *************")
+      console.log(res.data)
+      setUser(res.data)
+    })
+  }, [])
 
 
   return (
@@ -106,7 +120,7 @@ function HomeContent() {
               <ul>
                 {
                   line.map(line => (
-                    <p>{line.username}</p>
+                    <p>{line.email}</p>
                   ))
                 }
               </ul>

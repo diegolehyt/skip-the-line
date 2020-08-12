@@ -9,61 +9,61 @@
     "inLine":[
       {
         "id": 1,
-        "username": "Anthony",
+        "email": "Anthony",
         "storeLine": "LCBO",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Dustin",
+        "email": "Dustin",
         "storeLine": "LCBO",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Larry",
+        "email": "Larry",
         "storeLine": "LCBO",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Bob",
+        "email": "Bob",
         "storeLine": "LCBO",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Ali",
+        "email": "Ali",
         "storeLine": "LCBO",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Ryan",
+        "email": "Ryan",
         "storeLine": "LCBO",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Lukas",
+        "email": "Lukas",
         "storeLine": "LCBO",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Kim",
+        "email": "Kim",
         "storeLine": "LCBO",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Camila",
+        "email": "Camila",
         "storeLine": "LCBO",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Jose",
+        "email": "Jose",
         "storeLine": "LCBO",
         "spots": "1"
       }
@@ -80,31 +80,31 @@
     "inLine":[
       {
         "id": 1,
-        "username": "John",
+        "email": "John",
         "storeLine": "Coras",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "David",
+        "email": "David",
         "storeLine": "Coras",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Lore",
+        "email": "Lore",
         "storeLine": "Coras",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Carlos",
+        "email": "Carlos",
         "storeLine": "Coras",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Pablo",
+        "email": "Pablo",
         "storeLine": "Coras",
         "spots": "1"
       }
@@ -121,85 +121,85 @@
     "inLine":[
       {
         "id": 1,
-        "username": "Javier",
+        "email": "Javier",
         "storeLine": "Walmart",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Carl",
+        "email": "Carl",
         "storeLine": "Walmart",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Leo",
+        "email": "Leo",
         "storeLine": "Walmart",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Max",
+        "email": "Max",
         "storeLine": "Walmart",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Kate",
+        "email": "Kate",
         "storeLine": "Walmart",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Lu",
+        "email": "Lu",
         "storeLine": "Walmart",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Mirko",
+        "email": "Mirko",
         "storeLine": "Walmart",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Nicolas",
+        "email": "Nicolas",
         "storeLine": "Walmart",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Felipe",
+        "email": "Felipe",
         "storeLine": "Walmart",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Roberto",
+        "email": "Roberto",
         "storeLine": "Walmart",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Rodrigo",
+        "email": "Rodrigo",
         "storeLine": "Walmart",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Fabian",
+        "email": "Fabian",
         "storeLine": "Walmart",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Ricardo",
+        "email": "Ricardo",
         "storeLine": "Walmart",
         "spots": "1"
       },
       {
         "id": 1,
-        "username": "Andrea",
+        "email": "Andrea",
         "storeLine": "Walmart",
         "spots": "1"
       }
