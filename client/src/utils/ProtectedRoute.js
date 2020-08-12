@@ -3,18 +3,19 @@ import { Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getUser } from '../actions/userActions'
 
-function ProtectedRoute ({ component: Component, user, getUser, ...rest }) {
-  getUser()
+function ProtectedRoute ({ component: Component, users, getUser, ...rest }) {
+  useEffect(() => {
+    getUser()
+  })
   return (
     <>
-      {console.log(user.loading)}
-      {user.loading ? (
+      {users.loading ? (
         <div />
       ) : (
         <Route
           {...rest}
           render={props =>
-            !user.user.isAuthenticated ? (
+            !users.user.isAuthenticated ? (
               <Redirect to='/' />
             ) : (
               <Component {...props} />
@@ -27,7 +28,7 @@ function ProtectedRoute ({ component: Component, user, getUser, ...rest }) {
 }
 const mapStateToProps = state => {
   return {
-    user: state.user
+    users: state.users
   }
 }
 export default connect(mapStateToProps, { getUser })(ProtectedRoute)

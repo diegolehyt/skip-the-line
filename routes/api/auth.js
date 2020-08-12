@@ -13,11 +13,7 @@ router.post('/local', (req, res, next) => {
     else {
       req.logIn(user, err => {
         if (err) throw err
-        // res.status(200).send({
-        //   message: 'Successfully Authenticated'
-        // })
-        user.isAuthenticated = true
-        return res.json(user)
+        return res.json({ ...user, isAuthenticated: true })
       })
     }
   })(req, res, next)
@@ -55,9 +51,7 @@ router.get('/user', function (req, res) {
   } else {
     // Otherwise send back the user's email and id
     // Sending back a password, even a hashed password, isn't a good idea
-    const user = req.user
-    user.isAuthenticated = true
-    res.json(user)
+    res.json({ ...req.user, isAuthenticated: true })
   }
 })
 

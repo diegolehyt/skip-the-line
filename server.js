@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const express = require('express')
-const cors = require('cors')
+// const cors = require('cors')
 const passport = require('passport')
 const cookieSession = require('cookie-session')
 // const session = require('express-session')
@@ -12,12 +12,12 @@ const PORT = process.env.PORT || 3001
 // Middleware
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(
-  cors({
-    origin: 'http://localhost:3000', // <-- location of the react app were connecting to
-    credentials: true
-  })
-)
+// app.use(
+//   cors({
+//     origin: 'http://localhost:3000', // <-- location of the react app were connecting to
+//     credentials: true
+//   })
+// )
 app.use(
   cookieSession({
     name: 'session',
@@ -37,10 +37,12 @@ app.use(routes)
 
 // Connect to the Mongo DB
 mongoose.connect(
-  process.env.MONGODB_URI || 'mongodb://localhost:27017/skip-the-line',
+  process.env.MONGODB_URI || 'mongodb://localhost/skip-the-line',
   {
     useCreateIndex: true,
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
   }
 )
 
