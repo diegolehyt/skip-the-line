@@ -76,6 +76,7 @@ function Home ({ getUser, users }) {
     }, 1)
   }
 
+
   // const handleDelete = id => {
   //   props.deletePost(id)
   // }
@@ -86,6 +87,7 @@ function Home ({ getUser, users }) {
   //     console.log(res.data)
   //   })
   // }, [])
+
   useEffect(() => {
     checkAuthentication()
   }, [])

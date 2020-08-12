@@ -63,7 +63,6 @@ router.get('/stores', function (req, res) {
   console.log(res)
 })
 
-
 router.get('/logout', function (req, res) {
   req.logout()
   req.session = null
