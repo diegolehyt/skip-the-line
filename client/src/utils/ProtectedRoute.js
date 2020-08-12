@@ -1,23 +1,34 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import axios from 'axios'
+import { connect } from 'react-redux'
+import { getUser } from '../actions/userActions'
 
-function ProtectedRoute ({ component: Component, user, ...rest }) {
-  const [isAuthenticated, setAuthenticated] = useState(true)
+function ProtectedRoute ({ component: Component, users, getUser, ...rest }) {
   useEffect(() => {
-    axios.get('/api/auth/user').then(res => {
-      console.log(res.data)
-      setAuthenticated(true)
-    })
-  }, [])
+    getUser()
+  })
   return (
-    <Route
-      {...rest}
-      render={props =>
-        isAuthenticated ? <Component {...props} /> : <Redirect to='/' />
-      }
-    />
+    <>
+      {users.loading ? (
+        <div />
+      ) : (
+        <Route
+          {...rest}
+          render={props =>
+            !users.user.isAuthenticated ? (
+              <Redirect to='/' />
+            ) : (
+              <Component {...props} />
+            )
+          }
+        />
+      )}
+    </>
   )
 }
-
-export default ProtectedRoute
+const mapStateToProps = state => {
+  return {
+    users: state.users
+  }
+}
+export default connect(mapStateToProps, { getUser })(ProtectedRoute)

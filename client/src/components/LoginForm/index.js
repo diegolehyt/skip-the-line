@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import GoogleLogin from 'react-google-login'
-import axios from 'axios'
+import { connect } from 'react-redux'
+import { loginUser } from '../../actions/userActions'
 
-const LoginForm = () => {
-  const [authenticated, setAuthenticated] = useState(false)
+const LoginForm = ({ loginUser, users }) => {
   const [form, setForm] = useState({ email: '', password: '' })
-  const [error, setError] = useState('')
 
   const handleChange = event => {
     const { name, value } = event.target
@@ -15,21 +14,12 @@ const LoginForm = () => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    axios
-      .post('/api/auth/local', form)
-      .then(res => {
-        if (res.data.message === 'Successfully Authenticated')
-          setAuthenticated(true)
-      })
-      .catch(err => {
-        console.log(err.response.data.message)
-        setError(err.response.data.message)
-      })
+    loginUser(form)
   }
 
   return (
     <>
-      {authenticated ? <Redirect to='/home' /> : null}
+      {users.user.isAuthenticated ? <Redirect to='/home' /> : null}
       <form
         className='text-center border border-light p-5'
         action='#!'
@@ -93,10 +83,16 @@ const LoginForm = () => {
           onSuccess={() => setAuthenticated(true)}
           cookiePolicy={'single_host_origin'}
         />*/}
-        <p>{error}</p>
+        <p>{users.error}</p>
       </form>
     </>
   )
 }
 
-export default LoginForm
+const mapStateToProps = state => {
+  return {
+    users: state.users
+  }
+}
+
+export default connect(mapStateToProps, { loginUser })(LoginForm)

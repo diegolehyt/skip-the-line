@@ -5,10 +5,9 @@ import Video from '../components/Video'
 import Mask from '../components/Mask'
 import Container from '../components/Container'
 import HomeContent from '../components/HomeContent'
-import axios from 'axios'
 import { connect } from 'react-redux'
-import { getPosts, deletePost, createPost } from '../actions/postActions'
-// import { Link } from "react-router-dom";
+import { getUser } from '../actions/userActions'
+import { useHistory, Redirect } from 'react-router-dom'
 
 const styles = {
   headerB: {
@@ -67,12 +66,15 @@ const styles = {
   }
 }
 
-function Home (props) {
-  // const { posts } = props.posts
+function Home ({ getUser, users }) {
+  const [redirect, setRedirect] = useState(false)
 
-  // useEffect(() => {
-  //   props.getPosts()
-  // }, [])
+  const checkAuthentication = () => {
+    getUser()
+    setTimeout(() => {
+      if (!users.loading && !users.user.isAuthenticated) setRedirect(true)
+    }, 1)
+  }
 
   // const handleDelete = id => {
   //   props.deletePost(id)
@@ -84,6 +86,11 @@ function Home (props) {
   //     console.log(res.data)
   //   })
   // }, [])
+  useEffect(() => {
+    checkAuthentication()
+  }, [])
+
+  if (redirect) return <Redirect to='/' />
   return (
     <>
       <Navbar />
@@ -101,10 +108,8 @@ function Home (props) {
 
 const mapStateToProps = state => {
   return {
-    posts: state.posts
+    users: state.users
   }
 }
 
-export default connect(mapStateToProps, { getPosts, deletePost, createPost })(
-  Home
-)
+export default connect(mapStateToProps, { getUser })(Home)
