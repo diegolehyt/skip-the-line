@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import StoreBlock from "../StoreBlock";
+import axios from 'axios'
 import "./style.css";
 import storesList from "./stores.json"
+import Cookies from 'js-cookie'
 import userAPI from "./userAPI.json"
+import {connect } from 'react-redux'
+import {getUser} from '../../actions/userActions'
 
 const styles = {
   headerB: {
@@ -26,12 +30,14 @@ const styles = {
   }
 }
 
-function HomeContent() {
+function HomeContent({getUser, users}) {
 
   const [stores, setStores] = useState([]);
   const [line, setLine] = useState([]);
   const [store, setStore] = useState({});
-  const [user, setUser] = useState({});
+  // const [user, setUser] = useState({});
+
+  const [userOnline, setOnlineUser] = useState({});
   const [storeAct, setStoreAct] = useState(false);
 
   const getStores = () => {
@@ -43,7 +49,8 @@ function HomeContent() {
     //     setLogos(res);
     //     console.log(res);
     //   });
-    setUser(userAPI)
+
+    // setUser(userAPI)
     setStores(storesList)
   };
 
@@ -59,19 +66,27 @@ function HomeContent() {
    
   const handleLineSubmit = () => {
 
-    console.log(user)
-    setLine(line.concat(user))
+    console.log(users.user)
+    setLine(line.concat(users.user))
   };
 
   const handleLineCancel = () => {
     setLine(line.filter(
-      (playerZ) => playerZ.username !== user[0].username
+      (playerZ) => playerZ.email !== users.user.email
     ))
   };
 
   useEffect(() => {
     getStores();
   }, []);
+
+  // useEffect(() => {
+  //   axios.get('/api/auth/user').then(res => {
+  //     console.log("********* USER *************")
+  //     console.log(res.data)
+  //     setUser(res.data)
+  //   })
+  // }, [])
 
 
   return (
@@ -106,7 +121,7 @@ function HomeContent() {
               <ul>
                 {
                   line.map(line => (
-                    <p>{line.username}</p>
+                    <p>{line.email}</p>
                   ))
                 }
               </ul>
@@ -142,4 +157,10 @@ function HomeContent() {
 
 }
 
-export default HomeContent;
+const mapStateToProps = state => {
+  return {
+    users: state.users
+  }
+}
+
+export default connect(mapStateToProps, { getUser })(HomeContent)

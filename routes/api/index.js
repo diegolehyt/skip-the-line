@@ -1,9 +1,13 @@
 const path = require('path')
 const router = require('express').Router()
-const users = require('./users')
+const stores = require('./stores')
 const auth = require('./auth')
 
+router.use('/stores', stores)
+// router.use('/users', users)
+
 router.use('/users', users)
+
 router.use('/auth', auth)
 
 module.exports = router

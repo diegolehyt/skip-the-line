@@ -76,6 +76,18 @@ function Home ({ getUser, users }) {
     }, 1)
   }
 
+
+  // const handleDelete = id => {
+  //   props.deletePost(id)
+  // }
+  
+  // useEffect(() => {
+  //   axios.get('/api/auth/user').then(res => {
+  //     console.log("********* USER *************")
+  //     console.log(res.data)
+  //   })
+  // }, [])
+
   useEffect(() => {
     checkAuthentication()
   }, [])
