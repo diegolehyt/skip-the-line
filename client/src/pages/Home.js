@@ -7,7 +7,7 @@ import Container from '../components/Container'
 import HomeContent from '../components/HomeContent'
 import { connect } from 'react-redux'
 import { getUser } from '../actions/userActions'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Redirect } from 'react-router-dom'
 
 const styles = {
   headerB: {
@@ -67,10 +67,20 @@ const styles = {
 }
 
 function Home ({ getUser, users }) {
-  let history = useHistory()
-  useEffect(() => {
+  const [redirect, setRedirect] = useState(false)
+
+  const checkAuthentication = () => {
     getUser()
+    setTimeout(() => {
+      if (!users.loading && !users.user.isAuthenticated) setRedirect(true)
+    }, 1)
+  }
+
+  useEffect(() => {
+    checkAuthentication()
   }, [])
+
+  if (redirect) return <Redirect to='/' />
   return (
     <>
       <Navbar />
@@ -82,7 +92,6 @@ function Home ({ getUser, users }) {
           </Container>
         </Mask>
       </Intro>
-      {!users.loading && !users.user.isAuthenticated ? history.push('/') : null}
     </>
   )
 }
