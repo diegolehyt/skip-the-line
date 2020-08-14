@@ -75,7 +75,7 @@ const LoginForm = ({ loginUser, users }) => {
         </p>
 
         <p>or</p>
-        <a className='nav-link' href='api/auth/google'>
+        <a className='nav-link' href='/api/auth/google'>
           Continue with Google
         </a>
         {/*<GoogleLogin

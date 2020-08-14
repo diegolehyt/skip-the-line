@@ -7,6 +7,7 @@ const cookieSession = require('cookie-session')
 const bodyParser = require('body-parser')
 const app = express()
 const routes = require('./routes')
+const socket = require('socket.io')
 const PORT = process.env.PORT || 3001
 
 // Middleware
@@ -47,6 +48,15 @@ mongoose.connect(
 )
 
 // Start the API server
-app.listen(PORT, () =>
+const server = app.listen(PORT, () =>
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`)
 )
+
+const io = socket(server)
+
+io.on('connection', socket => {
+  console.log('Made a socket connection')
+  socket.on('event', event => {
+    io.emit('event', event)
+  })
+})
