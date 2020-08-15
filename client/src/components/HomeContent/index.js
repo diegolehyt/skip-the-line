@@ -7,6 +7,7 @@ import Cookies from 'js-cookie'
 import userAPI from './userAPI.json'
 import { connect } from 'react-redux'
 import { getUser } from '../../actions/userActions'
+import { getStores } from '../../actions/storeActions'
 import io from 'socket.io-client'
 const socket = io('http://localhost:3001')
 socket.on('event', event => {
@@ -35,16 +36,16 @@ const styles = {
   }
 }
 
-function HomeContent ({ getUser, users }) {
-  const [stores, setStores] = useState([])
+function HomeContent ({ getUser, users, getStores, stores }) {
+  const [storesB, setStoresB] = useState([])
   const [line, setLine] = useState([])
-  const [store, setStore] = useState({})
+  const [storeB, setStoreB] = useState({})
   // const [user, setUser] = useState({});
 
   const [userOnline, setOnlineUser] = useState({})
   const [storeAct, setStoreAct] = useState(false)
 
-  const getStores = () => {
+  const getStoresB = () => {
     // fetch("/api/logos")
     //   .then(function (response) {
     //     return response.json();
@@ -55,18 +56,22 @@ function HomeContent ({ getUser, users }) {
     //   });
 
     // setUser(userAPI)
-    setStores(storesList)
+    setStoresB(storesList)
   }
 
-  const getStore = storeData => {
+  const getStoreB = storeData => {
     console.log(storeData)
-    setStore(storeData)
+    setStoreB(storeData)
     setLine(storeData.inLine)
     setStoreAct(true)
   }
 
   const handleLineSubmit = () => {
-    console.log(users.user)
+    console.log("***********************")
+    console.log(users)
+    console.log("***********************")
+    console.log(stores)
+
     setLine(line.concat(users.user))
     socket.emit('event', { message: 'Hello from another browser' })
   }
@@ -77,6 +82,7 @@ function HomeContent ({ getUser, users }) {
 
   useEffect(() => {
     getStores()
+ 
   }, [])
 
   // useEffect(() => {
@@ -94,7 +100,7 @@ function HomeContent ({ getUser, users }) {
         style={styles.cities}
       >
         {storesList.map(store => (
-          <StoreBlock store={store} onStore={getStore} />
+          <StoreBlock store={store} onStore={getStoreB} />
         ))}
       </div>
 
@@ -105,7 +111,7 @@ function HomeContent ({ getUser, users }) {
         <div className='col-12'>
           {setStoreAct ? (
             <>
-              <p>{store.name}</p>
+              <p>{storeB.name}</p>
               <div>
                 <button
                   onClick={handleLineSubmit}
@@ -153,8 +159,9 @@ function HomeContent ({ getUser, users }) {
 
 const mapStateToProps = state => {
   return {
-    users: state.users
+    users: state.users,
+    stores: state.stores
   }
 }
 
-export default connect(mapStateToProps, { getUser })(HomeContent)
+export default connect(mapStateToProps, { getUser, getStores })(HomeContent)
