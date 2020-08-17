@@ -7,7 +7,7 @@ import Cookies from 'js-cookie'
 import userAPI from './userAPI.json'
 import { connect } from 'react-redux'
 import { getUser } from '../../actions/userActions'
-import { getStores } from '../../actions/storeActions'
+import { getStores, updateStore, deleteStore } from '../../actions/storeActions'
 import io from 'socket.io-client'
 const socket = io('http://localhost:3001')
 socket.on('event', event => {
@@ -36,7 +36,7 @@ const styles = {
   }
 }
 
-function HomeContent ({ getUser, users, getStores, stores }) {
+function HomeContent ({ getUser, users, getStores, stores, updateStore, deleteStore }) {
   const [storesB, setStoresB] = useState([])
   const [line, setLine] = useState([])
   const [storeB, setStoreB] = useState({})
@@ -60,24 +60,65 @@ function HomeContent ({ getUser, users, getStores, stores }) {
   }
 
   const getStoreB = storeData => {
-    console.log(storeData)
+    console.log(storeData._id)
     setStoreB(storeData)
     setLine(storeData.inLine)
     setStoreAct(true)
   }
 
   const handleLineSubmit = () => {
-    console.log("***********************")
-    console.log(users)
-    console.log("***********************")
-    console.log(stores)
+    // console.log("***********************")
+    // console.log(users.user)
+    // console.log("***********************")
+    // console.log(stores.stores)
 
     setLine(line.concat(users.user))
+
+    // Update Line
+
+    // const newLine = { 
+    //   inLine: line
+    // };
+    updateStore(storeB._id)
+    // fetch(`/api/stores/${storeB._id}`, {
+    //   method: "PATCH",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(newLine),
+    // }).then((response) => {
+    //   console.log(response.data);
+    // });
+
     socket.emit('event', { message: 'Hello from another browser' })
   }
 
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+  //   // AuthService.saveteam(selectedPlayers).then((data) => {
+  //   //   const { message } = data;
+  //   // });
+
+  //   user.myteam = selectedPlayers;
+  //   console.log("***************USER****************", user.myteam);
+  //   console.log("***************ID****************", objId);
+
+  //   const newLine = { 
+  //     inLine: user.myteam
+  //   };
+  //   fetch(`/api/users/${objId}`, {
+  //     method: "PATCH",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(newLine),
+  //   }).then((response) => {
+  //     console.log(response);
+  //     setSubmited(true)
+  //   });
+
+  // };
+
   const handleLineCancel = () => {
-    setLine(line.filter(playerZ => playerZ.email !== users.user.email))
+    // setLine(line.filter(playerZ => playerZ.email !== users.user.email))
+
+    deleteStore(storeB._id)
   }
 
   useEffect(() => {
@@ -99,7 +140,7 @@ function HomeContent ({ getUser, users, getStores, stores }) {
         className='scrollbar scrollbar-primary row flex-row flex-nowrap mt-4 pb-4'
         style={styles.cities}
       >
-        {storesList.map(store => (
+        {stores.stores.map(store => (
           <StoreBlock store={store} onStore={getStoreB} />
         ))}
       </div>
@@ -164,4 +205,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { getUser, getStores })(HomeContent)
+export default connect(mapStateToProps, { getUser, getStores, updateStore, deleteStore })(HomeContent)

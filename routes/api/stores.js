@@ -21,9 +21,44 @@ router.post('/storeslist', (req, res) => {
 
 router.get('/', function (req, res) {
   // res.json({name: "Diego"})
-  Store.find().then(stores => res.json(stores)).catch(err => res.status(500).json(err))
+  Store.find().populate("inLine").then(stores => res.json(stores)).catch(err => res.status(500).json(err))
   console.log("*******ruta******")
   console.log(res)
 })
+
+router.get("/:id", (req, res) => {
+
+  Store.findById(req.params.id).populate("inLine").then(store => res.json(store)).catch(err => res.status(500).json(err))
+
+});
+
+// UPDATE one
+router.patch("/:id", async (req, res) => {
+  console.log(req.body)
+  const store = await Store.findOneAndUpdate(
+    { _id: req.params.id },
+    { $push: { inLine: req.user._id } },
+    { new: true }
+  )
+  res.json(store)
+  // Store.findOneAndUpdate({ _id: req.params.id }, req.body, {
+  //   inLine: req.body
+  // })
+  //   .then((dbModel) => res.json(dbModel))
+  //   .catch((err) => res.status(422).json(err));
+    
+
+});
+
+// DELETE one
+router.delete("/:id", async (req, res) => {
+  console.log(req.body)
+  const store = await Store.findOneAndUpdate(
+    { _id: req.params.id },
+    { $pull: { inLine: req.user._id } },
+    { new: true }
+  )
+  res.json(store)
+});
 
 module.exports = router
