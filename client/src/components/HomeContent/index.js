@@ -7,6 +7,7 @@ import Cookies from 'js-cookie'
 import userAPI from './userAPI.json'
 import { connect } from 'react-redux'
 import { getUser } from '../../actions/userActions'
+import { getStores, updateStore, deleteStore } from '../../actions/storeActions'
 import io from 'socket.io-client'
 const socket = io('http://localhost:3001')
 socket.on('event', event => {
@@ -35,16 +36,16 @@ const styles = {
   }
 }
 
-function HomeContent ({ getUser, users }) {
-  const [stores, setStores] = useState([])
+function HomeContent ({ getUser, users, getStores, stores, updateStore, deleteStore }) {
+  const [storesB, setStoresB] = useState([])
   const [line, setLine] = useState([])
-  const [store, setStore] = useState({})
+  const [storeB, setStoreB] = useState({})
   // const [user, setUser] = useState({});
 
   const [userOnline, setOnlineUser] = useState({})
   const [storeAct, setStoreAct] = useState(false)
 
-  const getStores = () => {
+  const getStoresB = () => {
     // fetch("/api/logos")
     //   .then(function (response) {
     //     return response.json();
@@ -55,28 +56,74 @@ function HomeContent ({ getUser, users }) {
     //   });
 
     // setUser(userAPI)
-    setStores(storesList)
+    setStoresB(storesList)
   }
 
-  const getStore = storeData => {
-    console.log(storeData)
-    setStore(storeData)
+  const getStoreB = storeData => {
+    console.log(storeData._id)
+    setStoreB(storeData)
     setLine(storeData.inLine)
     setStoreAct(true)
   }
 
   const handleLineSubmit = () => {
-    console.log(users.user)
+    // console.log("***********************")
+    // console.log(users.user)
+    // console.log("***********************")
+    // console.log(stores.stores)
+
     setLine(line.concat(users.user))
+
+    // Update Line
+
+    // const newLine = { 
+    //   inLine: line
+    // };
+    updateStore(storeB._id)
+    // fetch(`/api/stores/${storeB._id}`, {
+    //   method: "PATCH",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(newLine),
+    // }).then((response) => {
+    //   console.log(response.data);
+    // });
+
     socket.emit('event', { message: 'Hello from another browser' })
   }
 
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+  //   // AuthService.saveteam(selectedPlayers).then((data) => {
+  //   //   const { message } = data;
+  //   // });
+
+  //   user.myteam = selectedPlayers;
+  //   console.log("***************USER****************", user.myteam);
+  //   console.log("***************ID****************", objId);
+
+  //   const newLine = { 
+  //     inLine: user.myteam
+  //   };
+  //   fetch(`/api/users/${objId}`, {
+  //     method: "PATCH",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(newLine),
+  //   }).then((response) => {
+  //     console.log(response);
+  //     setSubmited(true)
+  //   });
+
+  // };
+
   const handleLineCancel = () => {
-    setLine(line.filter(playerZ => playerZ.email !== users.user.email))
+    // setLine(line.filter(playerZ => playerZ.email !== users.user.email))
+
+    deleteStore(storeB._id)
   }
 
   useEffect(() => {
     getStores()
+ 
   }, [])
 
   // useEffect(() => {
@@ -93,8 +140,8 @@ function HomeContent ({ getUser, users }) {
         className='scrollbar scrollbar-primary row flex-row flex-nowrap mt-4 pb-4'
         style={styles.cities}
       >
-        {storesList.map(store => (
-          <StoreBlock store={store} onStore={getStore} />
+        {stores.stores.map(store => (
+          <StoreBlock store={store} onStore={getStoreB} />
         ))}
       </div>
 
@@ -105,7 +152,7 @@ function HomeContent ({ getUser, users }) {
         <div className='col-12'>
           {setStoreAct ? (
             <>
-              <p>{store.name}</p>
+              <p>{storeB.name}</p>
               <div>
                 <button
                   onClick={handleLineSubmit}
@@ -153,8 +200,9 @@ function HomeContent ({ getUser, users }) {
 
 const mapStateToProps = state => {
   return {
-    users: state.users
+    users: state.users,
+    stores: state.stores
   }
 }
 
-export default connect(mapStateToProps, { getUser })(HomeContent)
+export default connect(mapStateToProps, { getUser, getStores, updateStore, deleteStore })(HomeContent)

@@ -12,7 +12,7 @@ const storeSchema = new Schema({
   logo: String,
   inStore: Number,
   inLine: [
-    { type: mongoose.Schema.Types.ObjectId, ref: User }
+    { type: Schema.Types.ObjectId, ref: 'User' }
   ]
 })
 
