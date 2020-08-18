@@ -30,14 +30,14 @@ const styles = {
 }
 
 // Depending on the current path, this component sets the "active" className on the appropriate navigation link item
-function Navbar() {
+function Navbar(props) {
 
 
   
   return (
     <nav className="navbar navbar-expand navbar-dark fixed-top scrolling-navbar font-weight-bolder">
       <div className="container">
-        <Link className="navbar-brand" to="/" style={styles.navB}><img src="https://raw.githubusercontent.com/diegolehyt/weather-react-app/master/images/logo.png" width="40px" height="40px" tabindex="-1" style={styles.imgB} alt="logo"/>Weather</Link>
+        <Link className="navbar-brand" to="/" style={styles.navB}><img src="https://raw.githubusercontent.com/diegolehyt/weather-react-app/master/images/reloj.png" width="40px" height="40px" tabindex="-1" style={styles.imgB} alt="logo"/>Smart Line</Link>
 
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
           aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +49,7 @@ function Navbar() {
           <ul className="navbar-nav mr-auto smooth-scroll">
             <li className="nav-item">
         
-              
+             
               
             </li>
         
@@ -58,7 +58,7 @@ function Navbar() {
           {/* <!-- Social Icon  --> */}
           <ul className="navbar-nav nav-flex-icons">
             <li className="nav-item">
-              
+              <h6 className="text-white"><i className="fas fa-user-alt light-green-text-2"></i>{" "}{props.user.email}</h6>
             </li>
     
           </ul>

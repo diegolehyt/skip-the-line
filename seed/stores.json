@@ -1,28 +1,37 @@
 [
   {
     "name": "LCBO",
-    "address": "754 st andre drive, orleans",
+    "address": "754 st andre drive, Orleans",
     "storeCapacity": 15,
     "lineCapacity": 20,
-    "logo": "https://www.thesportsdb.com/images/media/team/badge/a1af2i1557005128.png",
+    "logo": "https://www.ianbrignell.com/wp-content/uploads/2013/11/lcbo-logo.png",
     "inLine":[],
     "inStore": 15
   },
   {
     "name": "Coras",
-    "address": "56 riverside drive, ottawa",
+    "address": "56 riverside drive, Ottawa",
     "storeCapacity": 50,
     "lineCapacity": 20,
-    "logo": "https://www.thesportsdb.com/images/media/team/badge/a1af2i1557005128.png",
+    "logo": "https://www.grasslands.ca/assets/cora-colour.png",
     "inLine":[],
     "inStore": 50
   },
   {
+    "name": "Winners & Homesense",
+    "address": "139 Innes road, Orleans",
+    "storeCapacity": 80,
+    "lineCapacity": 100,
+    "logo": "https://www.wem.ca/media/356087/winnershomesense-weblogo-color.png",
+    "inLine":[],
+    "inStore": 100
+  },
+  {
     "name": "Walmart",
-    "address": "56 riverside drive",
+    "address": "25 St Laurent Blv, Ottawa",
     "storeCapacity": 15,
     "lineCapacity": 300,
-    "logo": "https://www.thesportsdb.com/images/media/team/badge/a1af2i1557005128.png",
+    "logo": "https://lh3.googleusercontent.com/proxy/VyHbMqt-rUZEpjXLqh_-H1HTEGtbMN0-uQHWHRfu09c_y0fTQ0u05Tutt6A_hMimiIsz-ovG82Aou8LJjDjqoSc1kidEoKKWcO0sfl6TInD4WHW0yys",
     "inLine":[],
     "inStore": 300
   }
