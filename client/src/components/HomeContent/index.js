@@ -10,9 +10,9 @@ import { getUser } from '../../actions/userActions'
 import { getStores, updateStore, deleteStore } from '../../actions/storeActions'
 import io from 'socket.io-client'
 const socket = io('http://localhost:3001')
-socket.on('event', event => {
-  console.log(event.message)
-})
+
+
+
 
 const styles = {
   headerB: {
@@ -40,24 +40,11 @@ function HomeContent ({ getUser, users, getStores, stores, updateStore, deleteSt
   const [storesB, setStoresB] = useState([])
   const [line, setLine] = useState([])
   const [storeB, setStoreB] = useState({})
-  // const [user, setUser] = useState({});
+  const [bool, setbool] = useState(false);
 
   const [userOnline, setOnlineUser] = useState({})
   const [storeAct, setStoreAct] = useState(false)
 
-  const getStoresB = () => {
-    // fetch("/api/logos")
-    //   .then(function (response) {
-    //     return response.json();
-    //   })
-    //   .then(function (res) {
-    //     setLogos(res);
-    //     console.log(res);
-    //   });
-
-    // setUser(userAPI)
-    setStoresB(storesList)
-  }
 
   const getStoreB = storeData => {
     console.log(storeData._id)
@@ -75,64 +62,54 @@ function HomeContent ({ getUser, users, getStores, stores, updateStore, deleteSt
     setLine(line.concat(users.user))
 
     // Update Line
-
-    // const newLine = { 
-    //   inLine: line
-    // };
     updateStore(storeB._id)
-    // fetch(`/api/stores/${storeB._id}`, {
-    //   method: "PATCH",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(newLine),
-    // }).then((response) => {
-    //   console.log(response.data);
-    // });
 
-    socket.emit('event', { message: 'Hello from another browser' })
+    getStores()
+
+    socket.emit('event', { 
+      message: 'Hello from another browser'
+      // updateS: getStores()
+    })
   }
 
-  // const onSubmit = (e) => {
-  //   e.preventDefault();
-  //   // AuthService.saveteam(selectedPlayers).then((data) => {
-  //   //   const { message } = data;
-  //   // });
-
-  //   user.myteam = selectedPlayers;
-  //   console.log("***************USER****************", user.myteam);
-  //   console.log("***************ID****************", objId);
-
-  //   const newLine = { 
-  //     inLine: user.myteam
-  //   };
-  //   fetch(`/api/users/${objId}`, {
-  //     method: "PATCH",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(newLine),
-  //   }).then((response) => {
-  //     console.log(response);
-  //     setSubmited(true)
-  //   });
-
-  // };
 
   const handleLineCancel = () => {
     // setLine(line.filter(playerZ => playerZ.email !== users.user.email))
 
     deleteStore(storeB._id)
+    getStores()
+    if (bool) {
+      setbool(false)
+    }
+    else {
+      setbool(true)
+    }
+    
   }
+
+  useEffect(() => {
+   
+    console.log("*******************************")
+    console.log(storeB.inLine)
+    getStoreB(storeB)
+    // setStoreB(storeB)
+    // setLine(storeB.inLine)
+    // setStoreAct(true)
+ 
+  }, [bool])
 
   useEffect(() => {
     getStores()
  
   }, [])
 
-  // useEffect(() => {
-  //   axios.get('/api/auth/user').then(res => {
-  //     console.log("********* USER *************")
-  //     console.log(res.data)
-  //     setUser(res.data)
-  //   })
-  // }, [])
+  useEffect(()=>{
+    socket.on('event', event => {
+      console.log(event.message)
+      getStores()
+      // document.location.reload(true) 
+    })
+  }, [line])
 
   return (
     <div className='container'>
@@ -149,40 +126,79 @@ function HomeContent ({ getUser, users, getStores, stores, updateStore, deleteSt
         className='row d-flex justify-content-center flex-row flex-nowrap mt-4 pb-4'
         style={styles.cities}
       >
-        <div className='col-12'>
-          {setStoreAct ? (
+        
+          {line !== undefined ? (
             <>
-              <p>{storeB.name}</p>
-              <div>
-                <button
-                  onClick={handleLineSubmit}
-                  href='#!'
-                  className='btn btn-outline-white btn-md my-0 ml-sm-2'
-                  type='submit'
-                >
-                  <i class='fas fa-search text-white' aria-hidden='true'>
-                    Yes
-                  </i>
-                </button>
-                <button
-                  onClick={handleLineCancel}
-                  href='#!'
-                  className='btn btn-outline-white btn-md my-0 ml-sm-2'
-                  type='submit'
-                >
-                  <i class='fas fa-search text-white' aria-hidden='true'>
-                    No
-                  </i>
-                </button>
+              <div className='col-6' style={{ marginTop: '5%' }}>
+          
+                <div className="card card-cascade white-text rgba-blue-light">
+
+                  <div className="view view-cascade gradient-card-header rgba-orange-strong darken-3 text-white">
+
+                    <h2 className="card-header-title mb-3">Line Info</h2>
+                    <p className="card-header-subtitle mb-0">waiting time: {(line.length * 4)}{" "}min</p>
+
+                  </div>
+
+                  <ul class="list-group text-left">
+                    {
+                      line !== undefined
+                      ?
+                      line.map(line => (
+                        <div class="list-group-item rgba-black-slight">{line.email}</div>
+                      ))
+                      :
+                      null
+                    }
+                  </ul>
+                </div>
+              
               </div>
-              <ul>
-                {line.map(line => (
-                  <p>{line.email}</p>
-                ))}
-              </ul>
+              <div className="col-6" style={{ marginTop: '5%' }}>
+                <div className="card card-cascade white-text rgba-blue-light">
+
+                  <div className="view view-cascade gradient-card-header rgba-orange-strong darken-3 text-white">
+
+                    <h2 className="card-header-title mb-3">{storeB.name}</h2>
+                    <p className="card-header-subtitle mb-0">Store type:</p>
+
+                  </div>
+
+                  <ul class="list-group text-left">
+    
+                    <div class="list-group-item rgba-black-slight">
+                      <img src={storeB.logo} style={{ height: '140px' }}/>
+                      <h6><i className="fas fa-map-marker-alt text-white" aria-hidden="true"></i>{" "}{storeB.address}</h6>
+                      <button
+                      onClick={handleLineSubmit}
+                      href='#!'
+                      className='btn btn-outline-white btn-md my-0 ml-sm-2'
+                      type='submit'
+                      >
+                        <i class='fas fa-plus text-white' aria-hidden='true'>
+                          {" "}add
+                        </i>
+                      </button>
+                      <button
+                        onClick={handleLineCancel}
+                        href='#!'
+                        className='btn btn-outline-white btn-md my-0 ml-sm-2'
+                        type='submit'
+                      >
+                        <i class='fas fa-minus text-white' aria-hidden='true'>
+                          {" "}remove
+                        </i>
+                      </button>
+                    </div>
+           
+                  </ul>
+                </div>
+          
+              </div>
             </>
+            
           ) : null}
-        </div>
+        
       </div>
 
       <div className='row text-black' style={{ marginTop: '20%' }}>

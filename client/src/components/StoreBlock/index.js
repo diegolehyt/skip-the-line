@@ -69,14 +69,17 @@ function StoreBlock(props) {
   return (
     <div className="col-5" style={styles.margintop} onClick={getStore}>
       <div className="card white-text rgba-blue-light mb-3"  style={{maxWidth: '18em'}}>
-        <div className="card-header gradient-card-header rgba-blue-light">{props.store.name}</div>
+        <div className="card-header gradient-card-header rgba-orange-strong">{props.store.name}</div>
+        
         <div className="card-body row">
           
           <div className="col-6">
-            <img src={""}/>
+            <img src={props.store.logo} style={{ height: '40px' }}/>
             <p>Full: {props.store.inStore}</p>
+            <p><i class='fas fa-hourglass-half text-white' aria-hidden='true'></i>{" "}{(props.store.inLine.length * 4)}min</p>
           </div>
           <div  className="col-6">
+            <p>Line</p>
             <p className="card-text text-white" style={styles.todayO}> {props.store.inLine.length}</p>
           </div>
           
