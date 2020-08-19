@@ -11,6 +11,7 @@ import { getStores, updateStore, deleteStore } from '../../actions/storeActions'
 import io from 'socket.io-client'
 const socket = io('http://localhost:3001')
 socket.on('event', event => {
+  getStores()
   console.log(event.message)
 })
 
@@ -36,7 +37,14 @@ const styles = {
   }
 }
 
-function HomeContent ({ getUser, users, getStores, stores, updateStore, deleteStore }) {
+function HomeContent ({
+  getUser,
+  users,
+  getStores,
+  stores,
+  updateStore,
+  deleteStore
+}) {
   const [storesB, setStoresB] = useState([])
   const [line, setLine] = useState([])
   const [storeB, setStoreB] = useState({})
@@ -76,7 +84,7 @@ function HomeContent ({ getUser, users, getStores, stores, updateStore, deleteSt
 
     // Update Line
 
-    // const newLine = { 
+    // const newLine = {
     //   inLine: line
     // };
     updateStore(storeB._id)
@@ -101,7 +109,7 @@ function HomeContent ({ getUser, users, getStores, stores, updateStore, deleteSt
   //   console.log("***************USER****************", user.myteam);
   //   console.log("***************ID****************", objId);
 
-  //   const newLine = { 
+  //   const newLine = {
   //     inLine: user.myteam
   //   };
   //   fetch(`/api/users/${objId}`, {
@@ -123,7 +131,6 @@ function HomeContent ({ getUser, users, getStores, stores, updateStore, deleteSt
 
   useEffect(() => {
     getStores()
- 
   }, [])
 
   // useEffect(() => {
@@ -205,4 +212,9 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { getUser, getStores, updateStore, deleteStore })(HomeContent)
+export default connect(mapStateToProps, {
+  getUser,
+  getStores,
+  updateStore,
+  deleteStore
+})(HomeContent)
