@@ -1,5 +1,6 @@
 import {
   GET_ITEM,
+  GET_USER,
   CREATE_ITEM,
   ITEMS_LOADING,
   LOGIN,
@@ -11,7 +12,7 @@ const initState = {
 }
 export default (state = initState, action) => {
   switch (action.type) {
-    case GET_ITEM:
+    case GET_USER:
       return { ...state, user: action.payload, loading: false }
     case CREATE_ITEM:
       return { ...state, user: action.payload, loading: false }

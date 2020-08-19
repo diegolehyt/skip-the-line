@@ -95,7 +95,7 @@ function Home ({ getUser, users }) {
   if (redirect) return <Redirect to='/' />
   return (
     <>
-      <Navbar />
+      <Navbar user={users.user}/>
       <Intro>
         <Video />
         <Mask>

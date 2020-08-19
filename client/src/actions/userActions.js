@@ -1,16 +1,17 @@
 import axios from 'axios'
-import { GET_ITEM, ITEMS_LOADING, CREATE_ITEM, LOGIN, SET_ERROR } from './types'
+import { GET_USER, ITEMS_LOADING, CREATE_ITEM, LOGIN, SET_ERROR } from './types'
 
 export const getUser = () => dispatch => {
   dispatch(setItemsLoading())
   axios
     .get('/api/auth/user')
-    .then(res =>
+    .then(res => {
+      console.log(res.data)
       dispatch({
-        type: GET_ITEM,
+        type: GET_USER,
         payload: res.data
       })
-    )
+    })
     .catch(err => console.log(err))
 }
 

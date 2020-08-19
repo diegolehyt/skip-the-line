@@ -56,7 +56,10 @@ const io = socket(server)
 
 io.on('connection', socket => {
   console.log('Made a socket connection')
-  socket.on('event', event => {
-    io.emit('event', event)
+  socket.on('updateStoresClient', event => {
+    socket.broadcast.emit('updateStoresServer', event)
+  })
+  socket.on('updateCurrentStoreClient', currentStoreID => {
+    socket.broadcast.emit('updateCurrentStoreServer', currentStoreID)
   })
 })

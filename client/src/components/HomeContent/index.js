@@ -7,13 +7,14 @@ import Cookies from 'js-cookie'
 import userAPI from './userAPI.json'
 import { connect } from 'react-redux'
 import { getUser } from '../../actions/userActions'
-import { getStores, updateStore, deleteStore } from '../../actions/storeActions'
+import {
+  getStores,
+  getStore,
+  updateStore,
+  deleteStore
+} from '../../actions/storeActions'
 import io from 'socket.io-client'
 const socket = io('http://localhost:3001')
-socket.on('event', event => {
-  getStores()
-  console.log(event.message)
-})
 
 const styles = {
   headerB: {
@@ -38,108 +39,56 @@ const styles = {
 }
 
 function HomeContent ({
-  getUser,
-  users,
+  getStore,
   getStores,
   stores,
+  currentStore,
   updateStore,
   deleteStore
 }) {
-  const [storesB, setStoresB] = useState([])
-  const [line, setLine] = useState([])
-  const [storeB, setStoreB] = useState({})
-  // const [user, setUser] = useState({});
+  const [bool, setbool] = useState(false)
 
-  const [userOnline, setOnlineUser] = useState({})
-  const [storeAct, setStoreAct] = useState(false)
-
-  const getStoresB = () => {
-    // fetch("/api/logos")
-    //   .then(function (response) {
-    //     return response.json();
-    //   })
-    //   .then(function (res) {
-    //     setLogos(res);
-    //     console.log(res);
-    //   });
-
-    // setUser(userAPI)
-    setStoresB(storesList)
-  }
-
-  const getStoreB = storeData => {
-    console.log(storeData._id)
-    setStoreB(storeData)
-    setLine(storeData.inLine)
-    setStoreAct(true)
-  }
+  socket.on('updateCurrentStoreServer', currentStoreID => {
+    if (currentStore && currentStore._id === currentStoreID)
+      getStore(currentStore._id)
+  })
 
   const handleLineSubmit = () => {
-    // console.log("***********************")
-    // console.log(users.user)
-    // console.log("***********************")
-    // console.log(stores.stores)
-
-    setLine(line.concat(users.user))
-
     // Update Line
+    updateStore(currentStore._id)
 
-    // const newLine = {
-    //   inLine: line
-    // };
-    updateStore(storeB._id)
-    // fetch(`/api/stores/${storeB._id}`, {
-    //   method: "PATCH",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(newLine),
-    // }).then((response) => {
-    //   console.log(response.data);
-    // });
-
-    socket.emit('event', { message: 'Hello from another browser' })
+    socket.emit('updateStoresClient', {
+      message: 'Update all stores'
+    })
+    socket.emit('updateCurrentStoreClient', currentStore._id)
   }
-
-  // const onSubmit = (e) => {
-  //   e.preventDefault();
-  //   // AuthService.saveteam(selectedPlayers).then((data) => {
-  //   //   const { message } = data;
-  //   // });
-
-  //   user.myteam = selectedPlayers;
-  //   console.log("***************USER****************", user.myteam);
-  //   console.log("***************ID****************", objId);
-
-  //   const newLine = {
-  //     inLine: user.myteam
-  //   };
-  //   fetch(`/api/users/${objId}`, {
-  //     method: "PATCH",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(newLine),
-  //   }).then((response) => {
-  //     console.log(response);
-  //     setSubmited(true)
-  //   });
-
-  // };
 
   const handleLineCancel = () => {
     // setLine(line.filter(playerZ => playerZ.email !== users.user.email))
 
-    deleteStore(storeB._id)
+    deleteStore(currentStore._id)
+    if (bool) {
+      setbool(false)
+    } else {
+      setbool(true)
+    }
+    socket.emit('updateStoresClient', {
+      message: 'Update all stores'
+    })
+
+    socket.emit('updateCurrentStoreClient', currentStore._id)
   }
 
   useEffect(() => {
     getStores()
   }, [])
 
-  // useEffect(() => {
-  //   axios.get('/api/auth/user').then(res => {
-  //     console.log("********* USER *************")
-  //     console.log(res.data)
-  //     setUser(res.data)
-  //   })
-  // }, [])
+  useEffect(() => {
+    socket.on('updateStoresServer', event => {
+      getStores()
+      // document.location.reload(true)
+    })
+  }, [])
 
   return (
     <div className='container'>
@@ -148,7 +97,7 @@ function HomeContent ({
         style={styles.cities}
       >
         {stores.stores.map(store => (
-          <StoreBlock store={store} onStore={getStoreB} />
+          <StoreBlock _id={store._id} store={store} />
         ))}
       </div>
 
@@ -156,40 +105,73 @@ function HomeContent ({
         className='row d-flex justify-content-center flex-row flex-nowrap mt-4 pb-4'
         style={styles.cities}
       >
-        <div className='col-12'>
-          {setStoreAct ? (
-            <>
-              <p>{storeB.name}</p>
-              <div>
-                <button
-                  onClick={handleLineSubmit}
-                  href='#!'
-                  className='btn btn-outline-white btn-md my-0 ml-sm-2'
-                  type='submit'
-                >
-                  <i class='fas fa-search text-white' aria-hidden='true'>
-                    Yes
-                  </i>
-                </button>
-                <button
-                  onClick={handleLineCancel}
-                  href='#!'
-                  className='btn btn-outline-white btn-md my-0 ml-sm-2'
-                  type='submit'
-                >
-                  <i class='fas fa-search text-white' aria-hidden='true'>
-                    No
-                  </i>
-                </button>
+        {currentStore ? (
+          <>
+            <div className='col-6' style={{ marginTop: '5%' }}>
+              <div className='card card-cascade white-text rgba-blue-light'>
+                <div className='view view-cascade gradient-card-header rgba-orange-strong darken-3 text-white'>
+                  <h2 className='card-header-title mb-3'>Line Info</h2>
+                  <p className='card-header-subtitle mb-0'>
+                    waiting time: {currentStore.inLine.length * 4} min
+                  </p>
+                </div>
+
+                <ul class='list-group text-left'>
+                  {currentStore.inLine.map(user => (
+                    <div class='list-group-item rgba-black-slight'>
+                      {user.email}
+                    </div>
+                  ))}
+                </ul>
               </div>
-              <ul>
-                {line.map(line => (
-                  <p>{line.email}</p>
-                ))}
-              </ul>
-            </>
-          ) : null}
-        </div>
+            </div>
+            <div className='col-6' style={{ marginTop: '5%' }}>
+              <div className='card card-cascade white-text rgba-blue-light'>
+                <div className='view view-cascade gradient-card-header rgba-orange-strong darken-3 text-white'>
+                  <h2 className='card-header-title mb-3'>
+                    {currentStore.name}
+                  </h2>
+                  <p className='card-header-subtitle mb-0'>Store type:</p>
+                </div>
+
+                <ul class='list-group text-left'>
+                  <div class='list-group-item rgba-black-slight'>
+                    <img src={currentStore.logo} style={{ height: '140px' }} />
+                    <h6>
+                      <i
+                        className='fas fa-map-marker-alt text-white'
+                        aria-hidden='true'
+                      ></i>{' '}
+                      {currentStore.address}
+                    </h6>
+                    <button
+                      onClick={handleLineSubmit}
+                      href='#!'
+                      className='btn btn-outline-white btn-md my-0 ml-sm-2'
+                      type='submit'
+                    >
+                      <i class='fas fa-plus text-white' aria-hidden='true'>
+                        {' '}
+                        add
+                      </i>
+                    </button>
+                    <button
+                      onClick={handleLineCancel}
+                      href='#!'
+                      className='btn btn-outline-white btn-md my-0 ml-sm-2'
+                      type='submit'
+                    >
+                      <i class='fas fa-minus text-white' aria-hidden='true'>
+                        {' '}
+                        remove
+                      </i>
+                    </button>
+                  </div>
+                </ul>
+              </div>
+            </div>
+          </>
+        ) : null}
       </div>
 
       <div className='row text-black' style={{ marginTop: '20%' }}>
@@ -208,12 +190,14 @@ function HomeContent ({
 const mapStateToProps = state => {
   return {
     users: state.users,
-    stores: state.stores
+    stores: state.stores,
+    currentStore: state.stores.currentStore
   }
 }
 
 export default connect(mapStateToProps, {
   getUser,
+  getStore,
   getStores,
   updateStore,
   deleteStore

@@ -13,7 +13,7 @@ function Video() {
   return (
     <video className="video-intro" style={styles.viddeo} poster="https://mdbootstrap.com/img/Photos/Others/background.jpg" playsInline
       autoPlay muted loop>
-      <source src="https://static.videezy.com/system/resources/previews/000/021/813/original/clouds-loop-background-animation.mp4" type="video/mp4"/>
+      <source src="https://cdn.videvo.net/videvo_files/video/free/2012-09/small_watermarked/hd0535_preview.webm" type="video/mp4"/>
       {/* <source src="https://static.videezy.com/system/resources/previews/000/035/225/original/Vivid_blue_sky.mp4" type="video/mp4"/> */}
     </video>
   )
