@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './style.css'
 import { connect } from 'react-redux'
-import { getStore } from '../../actions/storeActions'
-import io from 'socket.io-client'
-const socket = io('http://localhost:3001')
+import { getStore } from '../../store/actions/storeActions'
 
 const styles = {
   navB: {
@@ -46,11 +44,6 @@ const styles = {
 }
 
 function StoreBlock ({ getStore, store, currentStore }) {
-  if (currentStore) {
-    socket.on('secondEvent', event => {
-      getStore(currentStore._id)
-    })
-  }
   // console.log(store)
   // const [temp, setTemp] = useState("")
   // const [icon, setIcon] = useState("")

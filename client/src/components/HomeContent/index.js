@@ -6,13 +6,13 @@ import storesList from './stores.json'
 import Cookies from 'js-cookie'
 import userAPI from './userAPI.json'
 import { connect } from 'react-redux'
-import { getUser } from '../../actions/userActions'
+import { getUser } from '../../store/actions/userActions'
 import {
   getStores,
   getStore,
   updateStore,
   deleteStore
-} from '../../actions/storeActions'
+} from '../../store/actions/storeActions'
 import io from 'socket.io-client'
 const socket = io('http://localhost:3001')
 
@@ -49,6 +49,7 @@ function HomeContent ({
   const [bool, setbool] = useState(false)
 
   socket.on('updateCurrentStoreServer', currentStoreID => {
+    console.log(currentStoreID)
     if (currentStore && currentStore._id === currentStoreID)
       getStore(currentStore._id)
   })
