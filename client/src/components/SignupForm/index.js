@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { createUser } from '../../actions/userActions'
+import { createUser } from '../../store/actions/userActions'
 
 const SignupForm = ({ users, createUser }) => {
   const [form, setForm] = useState({ email: '', password: '' })

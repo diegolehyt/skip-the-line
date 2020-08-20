@@ -1,35 +1,47 @@
 import axios from 'axios'
-import { GET_ITEMS, ITEMS_LOADING, SET_ERROR, UPDATE_ITEM, DELETE_ITEM } from './types'
+import {
+  GET_ITEMS,
+  GET_ITEM,
+  ITEMS_LOADING,
+  SET_ERROR,
+  UPDATE_ITEM,
+  DELETE_ITEM
+} from './types'
 
 export const getStores = () => dispatch => {
   dispatch(setItemsLoading())
   axios
     .get('/api/stores')
     .then(res => {
-      console.log(res.data)
       dispatch({
         type: GET_ITEMS,
         payload: res.data
-      })}
-    )
+      })
+    })
+    .catch(err => console.log(err))
+}
+export const getStore = id => dispatch => {
+  dispatch(setItemsLoading())
+  axios
+    .get(`/api/stores/${id}`)
+    .then(res => {
+      dispatch({
+        type: GET_ITEM,
+        payload: res.data
+      })
+    })
     .catch(err => console.log(err))
 }
 
-export const updateStore = (id) => dispatch => {
+export const updateStore = id => dispatch => {
   dispatch(setItemsLoading())
-  axios.patch(`/api/stores/${id}`).then(res =>{
+  axios.patch(`/api/stores/${id}`).then(res => {
     console.log(res.data)
- 
     dispatch({
       type: UPDATE_ITEM,
       payload: res.data
     })
-  }
-  )
-  return {
-    type: UPDATE_ITEM,
-    payload: id
-  }
+  })
 }
 
 export const deleteStore = id => dispatch => {

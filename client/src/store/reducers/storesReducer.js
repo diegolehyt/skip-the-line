@@ -1,5 +1,6 @@
 import {
   GET_ITEMS,
+  GET_ITEM,
   ITEMS_LOADING,
   SET_ERROR,
   UPDATE_ITEM,
@@ -21,17 +22,25 @@ export default (state = initState, action) => {
       return {
         ...state,
         stores: state.stores.map(store => {
-          
           return store._id === action.payload._id ? action.payload : store
-        })
+        }),
+        currentStore: action.payload,
+        loading: false
+      }
+    case GET_ITEM:
+      return {
+        ...state,
+        currentStore: action.payload,
+        loading: false
       }
     case DELETE_ITEM:
       return {
         ...state,
         stores: state.stores.map(store => {
-          
           return store._id === action.payload._id ? action.payload : store
-        })
+        }),
+        loading: false,
+        currentStore: action.payload
       }
     default:
       return { ...state }

@@ -58,9 +58,9 @@ router.get('/user', function (req, res) {
 
 router.get('/stores', function (req, res) {
   // res.json({name: "Diego"})
-  Store.find().then(stores => res.json(stores)).catch(err => res.status(500).json(err))
-  console.log("*******ruta******")
-  console.log(res)
+  Store.find()
+    .then(stores => res.json(stores))
+    .catch(err => res.status(500).json(err))
 })
 
 router.get('/logout', function (req, res) {

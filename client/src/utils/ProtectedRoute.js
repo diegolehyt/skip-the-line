@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getUser } from '../actions/userActions'
+import { getUser } from '../store/actions/userActions'
 
 function ProtectedRoute ({ component: Component, users, getUser, ...rest }) {
   useEffect(() => {

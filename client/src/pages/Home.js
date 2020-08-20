@@ -6,7 +6,7 @@ import Mask from '../components/Mask'
 import Container from '../components/Container'
 import HomeContent from '../components/HomeContent'
 import { connect } from 'react-redux'
-import { getUser } from '../actions/userActions'
+import { getUser } from '../store/actions/userActions'
 import { useHistory, Redirect } from 'react-router-dom'
 
 const styles = {
@@ -76,11 +76,10 @@ function Home ({ getUser, users }) {
     }, 1)
   }
 
-
   // const handleDelete = id => {
   //   props.deletePost(id)
   // }
-  
+
   // useEffect(() => {
   //   axios.get('/api/auth/user').then(res => {
   //     console.log("********* USER *************")
@@ -95,7 +94,7 @@ function Home ({ getUser, users }) {
   if (redirect) return <Redirect to='/' />
   return (
     <>
-      <Navbar user={users.user}/>
+      <Navbar user={users.user} />
       <Intro>
         <Video />
         <Mask>

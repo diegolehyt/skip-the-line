@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import GoogleLogin from 'react-google-login'
 import { connect } from 'react-redux'
-import { loginUser } from '../../actions/userActions'
+import { loginUser } from '../../store/actions/userActions'
 
 const LoginForm = ({ loginUser, users }) => {
   const [form, setForm] = useState({ email: '', password: '' })
